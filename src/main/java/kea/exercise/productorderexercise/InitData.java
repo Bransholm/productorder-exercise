@@ -37,5 +37,10 @@ public class InitData implements CommandLineRunner {
         product3.setPrice(18.95);
         product3.setEan13("898809090808");
         productRepository.save(product3);
+
+        Product product4 = new Product("Toilet paper", "Just for you", 38.25,"53445434555");
+        Product product5 = new Product("Goal", "Get a goal", 999.00, "808823344234");
+        productRepository.save(product4);
+        productRepository.save(product5);
     }
 }
