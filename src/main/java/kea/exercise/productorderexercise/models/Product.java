@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 
 // Entity
 @Entity
-public class product {
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
