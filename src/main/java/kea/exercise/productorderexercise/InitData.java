@@ -1,17 +1,24 @@
 package kea.exercise.productorderexercise;
 
+import kea.exercise.productorderexercise.models.OrderLine;
 import kea.exercise.productorderexercise.models.Product;
+import kea.exercise.productorderexercise.repositories.OrderLineRepository;
 import kea.exercise.productorderexercise.repositories.ProductRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class InitData implements CommandLineRunner {
 
     private final ProductRepository productRepository;
+    private final OrderLineRepository orderLineRepository;
 
-    public InitData(ProductRepository productRepository) {
+    public InitData(ProductRepository productRepository, OrderLineRepository orderLineRepository) {
         this.productRepository = productRepository;
+        this.orderLineRepository = orderLineRepository;
     }
 
     public void run(String... args) {
@@ -42,5 +49,15 @@ public class InitData implements CommandLineRunner {
         Product product5 = new Product("Goal", "Get a goal", 999.00, "808823344234");
         productRepository.save(product4);
         productRepository.save(product5);
+
+        //OrderLines - Save all in once
+        List<OrderLine> orderLines = new ArrayList<>();
+        orderLines.add(new OrderLine(product3, 7));
+        orderLines.add(new OrderLine(product3, 10));
+        orderLines.add(new OrderLine(product1, 5));
+        orderLineRepository.saveAll(orderLines);
+
+
+        System.out.println("We are live - Enjoy!");
     }
 }

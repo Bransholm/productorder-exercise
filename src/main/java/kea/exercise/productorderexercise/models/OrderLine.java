@@ -7,9 +7,19 @@ public class OrderLine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @OneToOne
+    @ManyToOne
     private Product product;
     private int quantity;
+
+    public OrderLine() {
+    }
+
+    public OrderLine(Product product, int quantity) {
+        this.product = product;
+        this.quantity = quantity;
+    }
+
+
 
     public int getId() {
         return id;
