@@ -1,5 +1,7 @@
 package kea.exercise.productorderexercise.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 @Entity
@@ -8,6 +10,8 @@ public class OrderLine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne
+    // @JsonIdentityInfo så det nestede product object kun vises fuldt første gang og derefter kun med product "id"
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     private Product product;
     private int quantity;
 

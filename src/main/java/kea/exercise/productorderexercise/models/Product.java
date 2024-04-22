@@ -1,5 +1,6 @@
 package kea.exercise.productorderexercise.models;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
