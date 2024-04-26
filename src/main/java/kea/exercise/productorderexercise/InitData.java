@@ -1,12 +1,15 @@
 package kea.exercise.productorderexercise;
 
+import kea.exercise.productorderexercise.models.Order;
 import kea.exercise.productorderexercise.models.OrderLine;
 import kea.exercise.productorderexercise.models.Product;
 import kea.exercise.productorderexercise.repositories.OrderLineRepository;
+import kea.exercise.productorderexercise.repositories.OrderRepository;
 import kea.exercise.productorderexercise.repositories.ProductRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,15 +18,20 @@ public class InitData implements CommandLineRunner {
 
     private final ProductRepository productRepository;
     private final OrderLineRepository orderLineRepository;
+    private final OrderRepository orderRepository;
 
-    public InitData(ProductRepository productRepository, OrderLineRepository orderLineRepository) {
+    public InitData(ProductRepository productRepository,
+                    OrderLineRepository orderLineRepository,
+                    OrderRepository orderRepository) {
         this.productRepository = productRepository;
         this.orderLineRepository = orderLineRepository;
+        this.orderRepository = orderRepository;
     }
 
     public void run(String... args) {
         System.out.println("InitData is running");
 
+        // Products - With and without parameters
         Product product1 = new Product();
         product1.setName("Dry fruits");
         product1.setDescription("Delicious fruits");
@@ -51,12 +59,20 @@ public class InitData implements CommandLineRunner {
         productRepository.save(product5);
 
         //OrderLines - Save all in once
-        List<OrderLine> orderLines = new ArrayList<>();
-        orderLines.add(new OrderLine(product3, 7));
-        orderLines.add(new OrderLine(product3, 10));
-        orderLines.add(new OrderLine(product1, 5));
+        List<OrderLine> orderLines = new ArrayList<>() {{
+            add(new OrderLine(product3, 7));
+            add(new OrderLine(product3, 10));
+            add(new OrderLine(product1, 5));
+            add(new OrderLine(product1, 5));
+        }};
         orderLineRepository.saveAll(orderLines);
 
+        // Orders - With parameters and save all in once
+        List<Order> orders = new ArrayList<>();
+        orders.add(new Order(LocalDate.now(), true, List.of(orderLines.get(0), orderLines.get(1))));
+        orders.add(new Order(LocalDate.now(), true, List.of(orderLines.get(2))));
+        orders.add(new Order(LocalDate.now(), true, List.of(orderLines.get(3))));
+        orderRepository.saveAll(orders);
 
         System.out.println("We are live - Enjoy!");
     }

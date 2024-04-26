@@ -1,7 +1,6 @@
 package kea.exercise.productorderexercise.models;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -16,6 +15,18 @@ public class Order {
     private boolean confirmed;
     @OneToMany
     private List<OrderLine> orderLines;
+
+
+    public Order() {
+    }
+
+    // Create Order constructor with parameters
+    public Order(LocalDate orderDate, boolean confirmed, List<OrderLine> orderLines) {
+        this.orderDate = orderDate;
+        this.confirmed = confirmed;
+        this.orderLines = orderLines;
+    }
+
 
     public int getId() {
         return id;
