@@ -60,18 +60,22 @@ public class InitData implements CommandLineRunner {
 
         //OrderLines - Save all in once
         List<OrderLine> orderLines = new ArrayList<>() {{
-            add(new OrderLine(product3, 7));
-            add(new OrderLine(product3, 10));
-            add(new OrderLine(product1, 5));
-            add(new OrderLine(product1, 5));
+            add(new OrderLine(product1, 7));
+            add(new OrderLine(product2, 10));
+            add(new OrderLine(product3, 5));
+            add(new OrderLine(product4, 5));
+            add(new OrderLine(product5, 5));
+            add(new OrderLine(product4, 5));
+            add(new OrderLine(product5, 5));
         }};
         orderLineRepository.saveAll(orderLines);
 
         // Orders - With parameters and save all in once
         List<Order> orders = new ArrayList<>();
         orders.add(new Order(LocalDate.now(), true, List.of(orderLines.get(0), orderLines.get(1))));
-        orders.add(new Order(LocalDate.now(), true, List.of(orderLines.get(2))));
-        orders.add(new Order(LocalDate.now(), true, List.of(orderLines.get(3))));
+        orders.add(new Order(LocalDate.now(), true, List.of(orderLines.get(2), orderLines.get(3))));
+        orders.add(new Order(LocalDate.now(), true, List.of(orderLines.get(4), orderLines.get(5))));
+        orders.add(new Order(LocalDate.now(), true, List.of(orderLines.get(6))));
         orderRepository.saveAll(orders);
 
         System.out.println("We are live - Enjoy!");
