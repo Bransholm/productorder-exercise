@@ -4,7 +4,6 @@ import kea.exercise.productorderexercise.models.Order;
 import kea.exercise.productorderexercise.repositories.OrderLineRepository;
 import kea.exercise.productorderexercise.repositories.OrderRepository;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
